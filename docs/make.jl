@@ -1,5 +1,6 @@
 using Documenter
 using Splinart
+using Changelog
 
 ENV["GKSwstype"] = "100"
 
