@@ -13,3 +13,6 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 DocStringExtensions = "0.9"
+Images = "0.26"
+Colors = "0.12"
+Plots = "1"
