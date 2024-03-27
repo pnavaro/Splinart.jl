@@ -3,7 +3,7 @@
 #
 # License: BSD 3 clause
 
-import Plots
+using RecipesBase
 
 
 """
@@ -30,55 +30,32 @@ function draw_pixel!(img, xs, ys)
     end
 end
 
-export save_img
+@userplot ShowImg
 
 """
 $(SIGNATURES)
 
-Save the image in a png file.
-
-Parameters
-----------
-- `img` : The image to save.
-- `path` : The save directory.
-- `filename` : The file name with the png extension.
-
-"""
-function save_img(img, path, filename)
-
-    Plots.heatmap(
-        img,
-        c = Plots.cgrad(:grays, rev = true),
-        aspect_ratio = 1,
-        legend = false,
-        showaxis = false,
-    )
-
-    !isdir(path) && mkpath(path)
-
-    Plots.savefig(joinpath(path, filename))
-
-end
-
-export show_img
-
-"""
-$(SIGNATURES)
-
-Plot the image using matplotlib.
+Plot recipe to show the image.
 
 Parameters
 ----------
 - `img` : The image to save.
 
 """
-function show_img(img)
-    p = Plots.heatmap(
-        img,
-        c = Plots.cgrad(:grays, rev = true),
-        aspect_ratio = 1,
-        legend = false,
-        showaxis = false,
-    )
-    Plots.display(p)
+@recipe function f(img::ShowImg)
+
+    array = img.args
+
+    @series begin
+
+        color := :grays
+        aspect_ratio := 1
+        legend := false
+        showaxis := false
+        seriestype := :heatmap
+
+        array
+    end
+
+
 end
